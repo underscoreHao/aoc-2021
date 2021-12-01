@@ -9,9 +9,9 @@ void PartOne(const std::vector<int>& vals)
 	for (auto it = vals.cbegin(), prev = vals.cbegin();
 		it != vals.cend(); prev = it, ++it)
 	{
-		if (*it > *prev)		++increased;
-		else if (*it < *prev)	++decreased;
-		else					++noChange;
+		if (*it > *prev)      ++increased;
+		else if (*it < *prev) ++decreased;
+		else                  ++noChange;
 	}
 
 	std::cout << "Increased: " << increased << '\n';
@@ -28,7 +28,7 @@ void PartTwo(const std::vector<int>& vals)
 		sumsOfThree.push_back(sum);
 	}
 
-	PartOne(sumsOfThree); 
+	PartOne(sumsOfThree);
 }
 
 int main(int argc, void** argv[])
