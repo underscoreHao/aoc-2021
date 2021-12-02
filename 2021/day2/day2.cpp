@@ -4,8 +4,8 @@
 
 struct Movement
 {
-	std::string direction{""};
-	int value{0};
+	std::string direction{ "" };
+	int value{ 0 };
 };
 
 std::istream&
@@ -21,7 +21,7 @@ unsigned PartOne(const std::vector<Movement>& input)
 	unsigned horizontal{ 0 };
 	unsigned depth{ 0 };
 
-	for (auto& m : input)
+	for (const auto& m : input)
 	{
 		if (m.direction == "forward")
 			horizontal += m.value;
@@ -40,12 +40,12 @@ unsigned PartTwo(const std::vector<Movement>& input)
 	unsigned depth{ 0 };
 	unsigned aim{ 0 };
 
-	for (auto& m : input)
+	for (const auto& m : input)
 	{
 		if (m.direction == "forward")
 		{
 			horizontal += m.value;
-			depth += aim > 0 ? aim * m.value : depth;
+			depth += aim * m.value;
 		}
 		else if (m.direction == "up")
 		{
@@ -69,9 +69,8 @@ int main(int argc, void** argv[])
 		input.push_back(mov);
 	}
 
-	std::cout << "Result: " << PartOne(input) << '\n';
-	std::cout << "Result: " << PartTwo(input) << '\n';
+	std::cout << "P1: " << PartOne(input) << '\n';
+	std::cout << "P2: " << PartTwo(input) << '\n';
 
 	return 0;
 }
-
