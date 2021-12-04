@@ -127,7 +127,7 @@ int main(int argc, void** argv[])
 
 	input.close();
 
-	auto [winNum, winBoard] = FindLastWinningBoard(bingoNumbers, bingoBoards);
+	auto [winNum, winBoard] = FindWinningBoard(bingoNumbers, bingoBoards);
 	int sum = GetBoardScore(winBoard);
 	
 	std::cout << "Final score: " << sum * winNum << '\n';
