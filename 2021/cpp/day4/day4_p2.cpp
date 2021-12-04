@@ -3,6 +3,7 @@
 #include <string>
 #include <sstream>
 #include <fstream>
+#include <set>
 
 using BoardRow = std::vector<std::pair<int, bool>>;
 using Board = std::vector<BoardRow>;
@@ -30,8 +31,7 @@ bool IsRowBingo(const Board& board)
 	{
 		isBingo = true;
 		for (const auto& n : row)
-			if (!n.second) 
-				isBingo = false;
+			if (!n.second) isBingo = false;
 
 		if (isBingo) return true;
 	}
@@ -68,10 +68,14 @@ int GetBoardScore(const Board& board)
 	return score;
 }
 
-std::pair<int, Board&> FindWinningBoard(const std::vector<int>& bingoNumbers, BingoBoards& bingoBoards)
+std::pair<int, Board&> FindLastWinningBoard(const std::vector<int>& bingoNumbers, BingoBoards& bingoBoards)
 {
+	// Initially did this with a vector that had all solved combos and returned the last
+	// The set is much better
+	std::set<int> solvedBoards; 
 	for (const auto& n : bingoNumbers)
 	{
+		int boardIdx{ 0 };
 		for (auto& board : bingoBoards)
 		{
 			for (auto& row : board)
@@ -79,9 +83,13 @@ std::pair<int, Board&> FindWinningBoard(const std::vector<int>& bingoNumbers, Bi
 					if (row[i].first == n)
 						row[i].second = true;
 
-			// Check board
 			if (IsBingo(board))
-				return { n, board };
+			{
+				solvedBoards.insert(boardIdx);
+				if (solvedBoards.size() == bingoBoards.size())
+					return { n, board };
+			}
+			++boardIdx;
 		}
 	}
 }
@@ -111,7 +119,7 @@ int main(int argc, void** argv[])
 			iss >> c1 >> c2 >> c3 >> c4 >> c5;
 
 			BoardRow row = 
-			{ {c1, false}, {c2, false}, {c3, false}, {c4, false}, {c5, false} };
+				{ {c1, false}, {c2, false}, {c3, false}, {c4, false}, {c5, false} };
 
 			board.push_back(row);
 
@@ -134,3 +142,4 @@ int main(int argc, void** argv[])
 
     return 0;
 }
+
