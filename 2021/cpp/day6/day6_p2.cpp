@@ -29,10 +29,10 @@ int main(int argc, char** argv[])
 	int dayCnt{ 1 };
 	while (dayCnt <= days)
 	{
-		const long long zeroes = lanternfish.front();
+		const long long newborns = lanternfish.front();
 		lanternfish.pop_front();
-		lanternfish[6] += zeroes;
-		lanternfish.push_back(zeroes);
+		lanternfish[6] += newborns;
+		lanternfish.push_back(newborns);
 		++dayCnt;
 	}
 
